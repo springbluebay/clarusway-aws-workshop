@@ -31,7 +31,7 @@ Resources:
       Tags:
         -
           Key: Name
-          Value: !Sub Web Server of ${AWS::StckName} Stack
+          Value: !Sub Web Server of ${AWS::StackName} Stack
       UserData:
         Fn::Base64:
             !Sub |
@@ -49,5 +49,5 @@ Outputs:
     Description: Roman Numerals Converter Application Website URL
     Value: !Sub 
       - http://${PublicAddress}
-      - PublicAddress: !GetAtt MywebServer.PublicDnsName
+      - PublicAddress: !GetAtt MyWebServer.PublicDnsName
                                                                                                       
