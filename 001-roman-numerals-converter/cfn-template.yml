@@ -39,9 +39,9 @@ Resources:
             yum update -y
             yum install python3 -y
             pip3 install flask
-            wget -p templates index.html
-            wget -p templates result.html
-            wget app.py
+            wget -p templates https://raw.githubusercontent.com/springbluebay/clarusway-aws-workshop/master/001-roman-numerals-converter/templates/index.html
+            wget -p templates https://raw.githubusercontent.com/springbluebay/clarusway-aws-workshop/master/001-roman-numerals-converter/templates/result.html
+            wget https://raw.githubusercontent.com/springbluebay/clarusway-aws-workshop/master/001-roman-numerals-converter/app.py
             python3 app.py
 
 Outputs:
