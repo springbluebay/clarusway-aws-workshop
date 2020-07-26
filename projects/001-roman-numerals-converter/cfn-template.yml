@@ -1,0 +1,49 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: >
+  This is cloudformation template for roman numerals application.
+  This flask web application runs on EC2 allows connection from anywhere on port 80.
+
+Resources:
+  MySecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enables HTTP for Flask Web Server
+      GroupName: Flask-WS-SG 
+      SecurityGroupIngress: 
+        -   IpProtocol: tcp
+            FromPort: 80
+            ToPort: 80
+            CidrIp: 0.0.0.0/0
+
+  MyWebServer:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-08f3d892de259504d
+      InstanceType: t2.micro
+      SecurityGroupIds:
+        - !Ref MySecurityGroup
+      Tags:
+        -
+          Key: Name
+          Value: !Sub Web Server of ${AWS::StackName} Stack
+      UserData:
+        Fn::Base64:
+            !Sub |
+            #! /bin/bash
+            yum update -y
+            yum install python3 -y
+            pip3 install flask
+            wget -P templates https://raw.githubusercontent.com/springbluebay/clarusway-aws-workshop/master/001-roman-numerals-converter/templates/index.html
+            wget -P templates https://raw.githubusercontent.com/springbluebay/clarusway-aws-workshop/master/001-roman-numerals-converter/templates/result.html
+            wget https://raw.githubusercontent.com/springbluebay/clarusway-aws-workshop/master/001-roman-numerals-converter/app.py
+            python3 app.py
+
+Outputs:
+  WebsiteURL:
+    Description: Roman Numerals Converter Application Website URL
+    Value: !Sub 
+      - http://${PublicAddress}
+      - PublicAddress: !GetAtt MyWebServer.PublicDnsName
+                                                                                                      
