@@ -2,9 +2,8 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: |
   Cloudformation template for milliseconds converter application
   This app runs on application load balancer
-  
-Resources:
 
+Resources:
   ALBSecurityGroup:
     Type: "AWS::EC2::SecurityGroup"
     Properties:
@@ -14,7 +13,6 @@ Resources:
           FromPort: 80
           ToPort: 80
           CidrIp: 0.0.0.0/0
-
   WebServersSecurityGroup:
     Type: "AWS::EC2::SecurityGroup"
     Properties:
@@ -28,7 +26,6 @@ Resources:
           FromPort: 22
           ToPort: 22
           CidrIp: 0.0.0.0/0
-
   WebServerLT:
     Type: "AWS::EC2::LaunchTemplate"
     Properties:
@@ -55,7 +52,6 @@ Resources:
             curl -s --create-dirs -o "/home/ec2-user/templates/result.html" -L "$FOLDER"templates/result.html
             curl -s --create-dirs -o "/home/ec2-user/app.py" -L "$FOLDER"app.py
             python3 /home/ec2-user/app.py
-
   WebServersTG:
     Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
     Properties:
@@ -63,7 +59,6 @@ Resources:
       Protocol: HTTP
       TargetType: instance
       VpcId: !GetAtt WebServersSecurityGroup.VpcId
-
   ApplicationLoadBalancer:
     Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
     Properties:
@@ -79,7 +74,6 @@ Resources:
         - subnet-8e5ee6c3
         - subnet-478c2e49
       Type: application
-
   ALBListener:
     Type: "AWS::ElasticLoadBalancingV2::Listener"
     Properties:
@@ -89,7 +83,6 @@ Resources:
       LoadBalancerArn: !Ref ApplicationLoadBalancer #required
       Port: 80 #required
       Protocol: HTTP #required
-
   WebServerASG:
     Type: "AWS::AutoScaling::AutoScalingGroup"
     Properties:
@@ -105,7 +98,6 @@ Resources:
       MinSize: 1 #required
       TargetGroupARNs:
         - !Ref WebServersTG
-        
 Outputs:
   WebsiteURL:
     Description: Milliseconds Converter Application Load Balancer URL
