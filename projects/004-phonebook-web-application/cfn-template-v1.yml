@@ -1,0 +1,88 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+  Cloudformation template for Phonebook Application.
+
+Parameters:
+  
+
+Resources:
+  WebServerSecurityGroup:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: Enable HTTP for Phonebook #required
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+  WebServerHost:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      ImageId: ami-02354e95b39ca8dec
+      InstanceType: t2.micro
+      KeyName: call.training
+      SecurityGroupIds:
+        - !Ref WebServerSecurityGroup
+      Tags:
+        - Key: Name
+          Value: !Sub Web Server of ${AWS::StackName} Stack
+      UserData: 
+        Fn::Base64:
+          !Sub
+            - | 
+              #! /bin/bash
+              yum update -y
+              yum install python3 -y
+              pip3 install flask
+              pip3 install flask_mysql
+              export DB_URL_1="${MyDBURI}"
+              export DB_URL_2="${MyDatabaseServer.Endpoint.Address}"
+              echo "${MyDBURI}" > /home/ec2-user/dbserver.endpoint
+              TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+              FOLDER="https://$TOKEN@raw.githubusercontent.com/clarusway/clarusway-aws-devops-1-20/master/aws/projects/004-phonebook-web-application/"
+              curl -s --create-dirs -o "/home/ec2-user/templates/index.html" -L "$FOLDER"templates/index.html
+              curl -s --create-dirs -o "/home/ec2-user/templates/add-update.html" -L "$FOLDER"templates/add-update.html
+              curl -s --create-dirs -o "/home/ec2-user/templates/delete.html" -L "$FOLDER"templates/delete.html
+              curl -s --create-dirs -o "/home/ec2-user/app.py" -L "$FOLDER"app.py
+              python3 /home/ec2-user/app.py
+            - MyDBURI: !GetAtt MyDatabaseServer.Endpoint.Address
+
+  MyDBSecurityGroup:
+    Type: "AWS::RDS::DBSecurityGroup"
+    Properties:
+      DBSecurityGroupIngress: #required
+        - EC2SecurityGroupId: !GetAtt WebServerSecurityGroup.GroupId
+        - CIDRIP: 0.0.0.0/0
+      GroupDescription: Frontend Access #required
+  MyDatabaseServer:
+    Type: "AWS::RDS::DBInstance"
+    Properties:
+      AllocatedStorage: 20
+      AllowMajorVersionUpgrade: false
+      AutoMinorVersionUpgrade: true
+      BackupRetentionPeriod: 0
+      DBInstanceClass: db.t2.micro #required
+      DBInstanceIdentifier: phonebook-db-server
+      DBName: phonebook
+      DBSecurityGroups:
+        - !Ref MyDBSecurityGroup
+      DeletionProtection: false
+      Engine: MySQL
+      EngineVersion: 8.0.19
+      MasterUserPassword: Callahan_1
+      MasterUsername: admin
+      MonitoringInterval: 0
+      MultiAZ: false
+      Port: 3306
+      PubliclyAccessible: true
+  
+Outputs:
+  WebsiteURL:
+    Description: Phonebook App URL
+    Value: !Sub 
+      - http://${PublicAddress}
+      - PublicAddress: !GetAtt WebServerHost.PublicDnsName
