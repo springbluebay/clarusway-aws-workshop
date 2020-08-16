@@ -1,0 +1,36 @@
+- deploy Lab-1 lab1.yml
+- check s3 bucket created
+- delete stack lab-1
+- check s3 bucket deleted
+- add DeletionPolicy for bucket
+- deploy Lab-2 lab2.yml
+- check s3 bucket created
+- delete stack Lab-2
+- show that s3 bucket not deleted
+- prepare lab3.yaml
+- deploy that without role
+- show that it rollsback if something wrong
+- create ec2-role CloudformationFullAccess
+- deploy again
+- show that we can see web page
+- show that instance type t2.micro
+- select stack
+- update
+- use current template
+- change env dev->prod
+- go to ec2 check new instance with type t2.small
+- copy lab3.yaml -> lab4.yaml
+- update WebServerSecurityGroup
+    - IpProtocol: tcp
+        FromPort: 22
+        ToPort: 22
+        CidrIp: 0.0.0.0/0
+- update content
+    content: |
+        <?php
+        echo '<h1>AWS CloudFormation sample PHP application</h1>';
+        echo 'Updated version via UpdateStack';
+            ?>
+- console -> update stack -> replace template -> upload lab4.yaml
+- check that web page Updated
+- check ec2 instance security group Updated

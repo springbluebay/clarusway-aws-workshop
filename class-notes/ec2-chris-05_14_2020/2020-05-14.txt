@@ -1,0 +1,31 @@
+
+* Select WP AMI
+* Launch instance
+* Navigate to instance ip on browser
+* Navigate to <ip-address>/wp-admin to login admin dashboard
+* Click on plugins
+* Click on Add New
+* Search KC for KingComposer
+* Create a sample page
+
+VOLUME
+* Create a volume in the same AZ with instance
+* Select the volume
+* Click on Actions
+* Click Attach Volume
+* Select the instance to attach
+INSTANCE CONFIGURATION
+* Connect to instance by SSH
+* Run lsblk to see volumes connected
+* You should see /dev/xvdf is your new volume (default for AL2)
+* df -h -> shows filesystem status
+* The volume is not available yet
+* sudo file -s /dev/xvdf -> to check volume has no data
+* You should see "/dev/xvdf:data"
+* FORMAT
+* sudo mkfs -t ext4 /dev/xvdf
+* CREATE MOUNT DIR
+* mkdir /newvolume
+* MOUNT
+* sudo mount /dev/xvdf /newvolume
+* cd /newvolume

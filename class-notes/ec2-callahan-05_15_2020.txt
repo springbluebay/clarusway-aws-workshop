@@ -1,0 +1,40 @@
+05-15-2020
+AWS Lab Session - Callahan
+EC2 Part 1 - Volumes & EBS 
+Session starts at 6pm EST
+lsblk
+sudo file -s /dev/xvdf
+sudo mkfs -t ext4 /dev/xvdf
+sudo mkdir /2nd-vol
+sudo mount /dev/xvdf /2nd-vol/
+lsblk
+history
+df -h
+ls -al /2nd-vol/
+lsblk
+cd /2nd-vol/
+sudo touch i-will-live-forever.txt
+ls
+sudo umount /dev/xvdf
+cd
+sudo umount /dev/xvdf
+lsblk
+sudo mkdir /third-vol
+sudo mount /dev/xvdf /third-vol/
+cd /third-vol/
+ls
+sudo file -s /dev/xvdf
+cd
+sudo reboot now
+lsblk
+ls -al
+ls -al /
+lsblk
+sudo mount /dev/xvdf /third-vol/
+cd /third-vol/
+ls
+cd
+lsblk
+sudo umount /dev/xvdf
+lsblk
+history

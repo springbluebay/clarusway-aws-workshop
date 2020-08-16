@@ -1,0 +1,58 @@
+EXAMPLE-1 User Data 
+#!/bin/bash
+yum update -y
+yum install -y httpd
+chkconfig httpd on
+service httpd start
+    * Click on Launch instance
+    * Step-1 Select AMI
+    * Step-2 Select instance type
+    * Step-3 Scroll down and paste script prepared to UserData field
+    * Step-4 Storage setup keep as it is
+    * Step-5 No tag required optional
+    * Step-6 Select/Create a security group with port 22 and 80 access
+    * Step-7 Review and launch instance
+EXAMPLE-2: Run web server using launch template
+    2.1 Create Launch Template
+        * Click on Launch Template from left menu
+        * Click on Create a new template
+        * Set launch teplate name->Apache
+        * Choose AMI Amazon Linux 2
+        * Choose instance type t2.micro
+        * Select the keypair
+        * Networking platform VPC default selected
+        * Security group: Select existing security group (port 22 and 80)
+        * Volume keep default parameters
+        * Click on addtag
+        * Tag  key->template , value-> template name
+        * Click on Advanced Details
+        * Paste the script in userdata field
+        * Click on create launch template
+    2.2 Modify Template
+    #!/bin/bash
+yum update -y
+yum install -y httpd
+yum install -y wget
+chkconfig httpd on
+cd /var/www/html
+wget https://raw.githubusercontent.com/awsdevopsteam/route-53-2/master/index.html
+wget https://raw.githubusercontent.com/awsdevopsteam/route-53-2/master/ryu.jpg
+service httpd start
+        * Select the template
+        * Click on modify template
+        * Make required changes
+        * Save it with version description
+        * Go to launch template dashboard
+        * Select modified template
+        * From actions menu selec set default version
+        * Update default version to the latest version
+    2.3 Launch instance from template
+        * Select the launch template
+        * Select Launch instance from template from Actions menu
+        * Should navigate to the page with template Details
+        * Scroll down to the bottom of page
+        * Click on Launch instance from template
+        * Check instance list for the instance started
+EXAMPLE-3: AMIs
+    3.1 Create AMI (Amazon Machine Image)
+    3.2 Launch an instance from own AMI

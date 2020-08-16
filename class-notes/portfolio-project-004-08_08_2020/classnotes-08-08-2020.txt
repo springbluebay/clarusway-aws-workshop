@@ -1,0 +1,12 @@
+Portfolio Building Session
+08/08/2020
+
+Project-004 : Phonebook Application (Python Flask) deployed on AWS Application Load Balancer with Auto Scaling and Relational Database Service using AWS Cloudformation
+
+Instructor: Callahan
+
+Session - 1 
+
+Session starts at 11am EST
+
+Break until 12.16pm

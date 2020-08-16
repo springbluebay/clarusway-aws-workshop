@@ -1,0 +1,37 @@
+Portfolio Building Session
+08/15/2020
+
+Project-006 : Kittens Carousel Static Website deployed on AWS Cloudfront, S3 and Route 53 using Cloudformation
+
+Instructor: Callahan
+
+Session - 1
+
+Session starts at 12pm EST
+
+Project Setup
+
+- Parameters
+
+  - Domain Name ex. clarusway.us
+
+  - Website Domain Name ex. kittens.clarusway.us
+
+- S3
+
+  - Bucket
+
+  - Bucket Policy
+
+- Cloudfront
+
+  - Cloudfront Distribution
+
+- Route 53
+
+  - RecordSet for website
+
+- Certificate Manager
+
+  - Certificate
+

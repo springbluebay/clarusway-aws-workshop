@@ -1,0 +1,59 @@
+EXAMPLE-1: Prepared Apache server manually
+    * Launch instance
+    * chmod 400 <path-to-your-key-file>
+    * sudo yum update -y #updates the system
+    * sudo yum install -y wget #if needed
+    * sudo systemctl enable httpd.service #enabled the service
+    * sudo systemctl start httpd.service # start the service
+    * cd /var/www/html
+    * sudo wget https://raw.githubusercontent.com/awsdevopsteam/route-53-2/master/index.html
+    * sudo wget https://raw.githubusercontent.com/awsdevopsteam/route-53-2/master/ryu.jpg
+    * sudo vim index.html
+    * add line "<center><a href="second.html">Second RYU :)</a></center>"
+    * sudo cp index.html second.html
+    * sudo vim second.html
+    * update content and add back link -> index.html
+EXAMPLE-2: Run web server with UserData
+    * Click on Launch instance
+    * Step-1 Select AMI
+    * Step-2 Select instance type
+    * Step-3 Scroll down and paste script prepared to UserData field
+    * Step-4 Storage setup keep as it is
+    * Step-5 No tag required optional
+    * Step-6 Select/Create a security group with SSH&HTTP access
+    * Step-7 Review and launch instance
+EXAMPLE-3: Run web server using launch template
+    3.1 Create Launch Template
+        * Click on Launch Template from left menu
+        * Click on Create a new template
+        * Set launch teplate name->Apache
+        * Choose AMI Amazon Linux 2
+        * Choose instance type t2.micro
+        * Select the keypair
+        * Networking platform VPC default selected
+        * Security group: Select existing security group ssh&http
+        * Volume keep default parameters
+        * Click on addtag
+        * Tag  key->template , value-> template name
+        * Click on Advanced Details
+        * Paste the script in userdata field
+        * Click on create launch template
+    3.2 Modify Template
+        * Select the template
+        * Click on modify template
+        * Make required changes
+        * Save it with version description
+        * Go to launch template dashboard
+        * Select modified template
+        * From actions menu selec set default version
+        * Update default version to the latest version
+    3.3 Launch instance from template
+        * Select the launch template
+        * Select Launch instance from template from Actions menu
+        * Should navigate to the page with template Details
+        * Scroll down to the bottom of page
+        * Click on Launch instance from template
+        * Check instance list for the instance started
+EXAMPLE-4: AMIs
+    4.1 Create AMI
+    4.2 Launch an instance from own AMI

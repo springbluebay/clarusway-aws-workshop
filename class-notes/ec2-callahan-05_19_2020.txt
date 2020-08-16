@@ -1,0 +1,101 @@
+# 05-19-2020
+# AWS Lab Session - Callahan
+# Volumes & EBS 
+# Session starts at 5.30pm EST
+lsblk
+sudo file -s /dev/xvdf
+sudo mkfs -t ext4 /dev/xvdf
+sudo mkdir /2nd-vol
+df -h
+sudo mount /dev/xvdf /2nd-vol/
+lsblk
+df -h
+ls -lh /2nd-vol/
+sudo touch /2nd-vol/who-wants-to-live-forever
+ls -lh /2nd-vol/
+lsblk
+df -h
+sudo resize2fs /dev/xvdf
+df -h
+ls -lh /2nd-vol/
+sudo file -s /dev/xvdf
+sudo reboot now
+lsblk
+sudo file -s /dev/xvdf
+sudo mount /dev/xvdf /2nd-vol/
+ls /2nd-vol/
+lsblk
+sudo fdisk -l
+sudo fdisk /dev/xvdg
+lsblk
+sudo file -s /dev/xvdg
+sudo file -s /dev/xvdg1
+sudo mkfs -t ext4 /dev/xvdg1
+sudo file -s /dev/xvdg1
+sudo file -s /dev/xvdg
+sudo mkfs -t ext4 /dev/xvdg1
+sudo mkdir /3rd-vol
+sudo mount /dev/xvdg1 /3rd-vol
+ls /3rd-vol/
+sudo touch /3rd-vol/i-want-to-survive
+ls /3rd-vol/
+lsblk
+sudo growpart /dev/xvdg 1
+lsblk
+sudo resize2fs /dev/xvdg1
+df -h
+ls /3rd-vol/
+lsblk
+sudo fdisk /dev/xvdh
+lsblk
+sudo file -s /dev/xvdh
+sudo file -s /dev/xvdh1
+sudo mkfs -t ext4 /dev/xvdh1
+sudo mkfs -t ext4 /dev/xvdh2
+sudo file -s /dev/xvdh1
+sudo file -s /dev/xvdh2
+df -h
+sudo mkdir /4th-vol-part1
+sudo mkdir /4th-vol-part2
+sudo mount /dev/xvdh1 /4th-vol-part1
+sudo mount /dev/xvdh2 /4th-vol-part2
+history
+df -h
+ls /4th-vol-part1
+sudo touch /4th-vol-part1/survival-in-part1
+ls /4th-vol-part2
+sudo touch /4th-vol-part1/survival-in-part2
+ls /4th-vol-part2
+sudo touch /4th-vol-part2/survival-in-part2
+ls /4th-vol-part2
+ls /4th-vol-part1
+sudo rm /4th-vol-part1/survival-in-part2
+ls /4th-vol-part1
+lsblk
+sudo growpart /dev/xvdh 1
+sudo growpart /dev/xvdh 2
+lsblk
+df -h
+sudo resize2fs /dev/xvdh2
+df -h
+ls /4th-vol-part2
+ls /4th-vol-part1
+sudo file -s /xvdf
+sudo file -s /dev/xvdf
+sudo file -s /dev/xvdg1
+sudo file -s /dev/xvdh1
+sudo file -s /dev/xvdh2
+sudo cp /etc/fstab /etc/fstab.bak
+sudo vim /etc/fstab
+sudu mount -a
+sudo mount -a
+lsblk
+sudo reboot now
+ls /4th-vol-part1
+ls /4th-vol-part2
+df -h
+logout
+# UUID=cbecb1ab-9bc3-4ea2-9231-b1beacc17263   /2nd-vol    defaults,nofail        0       0
+# UUID=cc85fe79-2a44-4388-8ab6-85e5a0bd1aed   /3rd-vol    defaults,nofail        0       0
+# UUID=502aa1b5-483f-4aea-8b39-4ad5fa447c42   /4th-vol-part1  defaults,nofail        0       0
+# UUID=68b75d0c-d866-46ad-9c1c-f2316d6144e0   /4th-vol-part2  defaults,nofail        0       0

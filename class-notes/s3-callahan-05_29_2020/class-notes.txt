@@ -1,0 +1,98 @@
+# 05-29-2020
+# AWS Lab Session - Callahan
+# Simple Storage Service (S3) 
+# open s3 service from aws management console
+# create a bucket - clarusway-storage
+    # explain naming convention, unique, global
+    # explain why we choose region, redundancy, availability
+    # Versioning    Disabled
+    # Server access logging Disabled
+    # Tagging   0 Tags
+    # Object-level logging  Disabled
+    # Default encryption    None
+    # CloudWatch request metrics    Disabled
+    # Object lock   Disabled
+    # Block all public access
+# upload a file to the bucket with default values
+# show the file details
+# open the file url, not shown (not accessible) in the browser
+# try to make the object public, face "Error Access denied"
+# open the bucket permissions, change it public
+# select the file uploaded and make it public also
+# open the file url in the browser, show it is accessible now
+# create a folder named it images, explain why a folder is also called as prefix in S3
+# upload a second file under images folder with drag and drop
+# open the second file url, not shown (not accessible) in the browser
+# select the second file uploaded and make it public also
+# open the second file url in the browser, show it is accessible now
+# upload a third file under clarusway-storage bucket
+# show how to move the third file under images folder
+# show how to delete the second file
+# show how to rename the third file
+# show how to delete the images folder, show that it is deleted even if there are objects in folder.
+# show the storage classes, S3 Standard, Standard IA, Glacier: 3 AZs, durability 11/9 
+# create a new bucket for website logging - log.pet.clarusway.call
+    # Versioning    Disabled
+    # Server access logging Disabled
+    # Tagging   0 Tags
+    # Object-level logging  Disabled
+    # Default encryption    None
+    # CloudWatch request metrics    Disabled
+    # Object lock   Disabled
+    # Allow all public access
+############ Static Website Hosting #############
+# static Website Hosting
+# create a new bucket for static website - pet.clarusway.call
+    # Versioning    Enabled
+    # Server access logging Enabled
+    # Tagging   0 Tags
+    # Object-level logging  Disabled
+    # Default encryption    None
+    # CloudWatch request metrics    Disabled
+    # Object lock   Disabled
+    # Allow all public access
+# show static website hosting settings from properties of new bucket
+    # enter index.html as default file
+# set the static website bucket policy as shown below
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::bucket-name/*"
+        }
+    ]
+}
+# upload index.html and image to the bucket
+<html>
+    <head>
+        <title> Cute Cat </title>
+    </head>
+    <body>
+        <center><h1> My Cute Cat </h1><center>
+        <center><img src="cat.jpg" alt="Cute Cat"</center>
+    </body>
+</html>
+# open static website url in browser and show its working
+# create folder under the bucket - kitten
+# move the index.html and image into the folder
+# open static website url in browser again, show it's not working at with default url, facing with "404 Not Found"
+# add path kitten tho the url to show the content without file name
+# rename the index.html under kitten folder as cutest.html
+# open static website url in browser again with path kitten added, show it's not working as with default index.html, facing with "404 Not Found"
+# add exact file name cutest.html tho the url to show the content 
+############# Versioning ############# 
+# show versioning of the files right under the bucket pet.clarusway.call
+# delete "delete markers" of the index.html and cat.jpg, and show that they are available again.
+# upload a new version of the index.html
+# open static website url in browser again, observe that it is showing the new content 
+# upload a new version of the cat.jpg under kitten folder
+# open static website url with kitten path in browser again, observe that it is showing the new content 
+# show versioning of the index.html, and delete the latest version.
+# open static website url in browser again, observe that it is showing the old content 
+# open website log bucket and show logging
+# open lifecycle console of the log bucket from the management tab and add lifecycle rule
+# delete logging bucket

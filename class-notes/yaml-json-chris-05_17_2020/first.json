@@ -1,0 +1,52 @@
+{
+    "stores":[
+        {
+            "name":"Amazon",
+            "url":"https://www.amazon.com",
+            "genre":[
+                {
+                    "name":"Political Fiction",
+                    "id":1
+                },
+                {
+                    "name":"Classics",
+                    "id":2
+                },
+                {
+                    "name":"Economics",
+                    "id":3
+                }
+            ],
+            "category_counts":[
+                155,200,122
+            ],
+            "category_images":[
+                "","",""
+            ],
+            "books":[
+                [
+                    {
+                        "title" : "1984",
+                        "author" : "George Orwell",
+                        "cover_photo_url" : "https://images-na.ssl-images-amazon.com/images/I/71-qZ2Z754L.jpg",
+                        "genre" : 1,
+                        "id" : "M5BSK0Ohmzjf_lIFWm5",
+                        "isbn_number" : 542112,
+                        "language" : "English",
+                        "price" : 545,
+                        "url":""
+                    },
+                    {
+
+                    },
+                    {
+
+                    }
+                ],
+                [],
+                [],
+                []
+            ]
+        }
+    ]
+}
