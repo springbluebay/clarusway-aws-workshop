@@ -1,0 +1,15 @@
+Portfolio Building Session
+09/12/2020
+
+Project-203: Docker Swarm Deployment of Phonebook Application (Python Flask) with MySQL
+
+Instructor: Callahan
+
+Session - 1 
+
+Session starts at 11am EST
+
+Break Until 12.15pm
+
+
+

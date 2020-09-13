@@ -1,0 +1,129 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+  Testing
+
+Parameters:
+ KeyPairName:
+    Description: Enter the name of your Key Pair for SSH connections.
+    Type: AWS::EC2::KeyPair::KeyName
+    ConstraintDescription: Must be one of the existing EC2 KeyPair
+  
+Resources:
+  InstanceConnectPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      PolicyDocument: #required
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - ec2-instance-connect:SendSSHPublicKey
+            Resource:
+              - !Sub arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:instance/*
+            Condition: {"StringEquals": {"ec2:osuser": "ec2-user"}}
+          - Effect: Allow
+            Action:
+              - ec2:DescribeInstances
+            Resource: "*"
+  EC2InstanceConnect:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+              - ec2.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - !Ref InstanceConnectPolicy
+  EC2ConnectProfile:
+    Type: "AWS::IAM::InstanceProfile"
+    Properties:
+      Roles: #required
+        - !Ref EC2InstanceConnect
+  DockerMachinesSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH and HTTP for Docker Machines
+      SecurityGroupIngress:
+        - IpProtocol: -1 #required
+          FromPort: 0
+          ToPort: 65535
+          CidrIp: 0.0.0.0/0
+
+  DockerManager1:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-038b5c5d2ad6a5090
+      InstanceType: t2.micro
+      KeyName: !Ref KeyPairName
+      IamInstanceProfile: !Ref EC2ConnectProfile
+      SecurityGroupIds:
+        - !GetAtt DockerMachinesSecurityGroup.GroupId
+      Tags:                
+        -                        
+          Key: Name
+          Value: !Sub Docker Master of ${AWS::StackName}
+      UserData: 
+        Fn::Base64: !Sub |
+          #! /bin/bash
+          yum update -y
+          hostnamectl set-hostname Docker-Master
+          amazon-linux-extras install docker -y
+          systemctl start docker
+          systemctl enable docker
+          usermod -a -G docker ec2-user
+          curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" \
+          -o /usr/local/bin/docker-compose
+          chmod +x /usr/local/bin/docker-compose
+          docker swarm init
+          docker service create \
+          --name=viz \
+          --publish=8080:8080/tcp \
+          --constraint=node.role==manager \
+          --mount=type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
+          dockersamples/visualizer
+
+  DockerWorker1:
+    Type: AWS::EC2::Instance
+    DependsOn:
+      - DockerManager1
+    Properties:
+      ImageId: ami-038b5c5d2ad6a5090
+      InstanceType: t2.micro
+      KeyName: !Ref KeyPairName
+      IamInstanceProfile: !Ref EC2ConnectProfile
+      SecurityGroupIds:
+        - !GetAtt DockerMachinesSecurityGroup.GroupId
+      Tags:                
+        -                        
+          Key: Name
+          Value: !Sub Docker Worker of ${AWS::StackName}
+      UserData:
+        Fn::Base64: !Sub |
+          #! /bin/bash
+          yum update -y
+          hostnamectl set-hostname Docker-Worker
+          amazon-linux-extras install docker -y
+          systemctl start docker
+          systemctl enable docker
+          usermod -a -G docker ec2-user
+          curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" \
+          -o /usr/local/bin/docker-compose
+          chmod +x /usr/local/bin/docker-compose
+          yum install -y python-pip
+          pip install ec2instanceconnectcli
+          $(mssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -r ${AWS::Region} ${DockerManager1} docker swarm join-token worker | grep docker)
+Outputs:
+ DockerManagerDNSName:
+    Description: Docker Manager DNS Name
+    Value: !Sub 
+      - ${PublicAddress}
+      - PublicAddress: !GetAtt DockerManager1.PublicDnsName
+ DockerWorkerDNSName:
+    Description: Docker Worker DNS Name
+    Value: !Sub 
+      - ${PublicAddress}
+      - PublicAddress: !GetAtt DockerWorker1.PublicDnsName

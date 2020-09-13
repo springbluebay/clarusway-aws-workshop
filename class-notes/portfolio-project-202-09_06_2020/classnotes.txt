@@ -1,0 +1,20 @@
+Portfolio Building Session
+09/06/2020
+
+Project-202: Dockerization of Bookstore Web API (Python Flask) with MySQL
+
+Instructor: Callahan
+
+Session - 2 
+
+Session starts at 11am EST
+
+Break Until 12.15pm EST
+
+curl ec2-100-25-169-246.compute-1.amazonaws.com
+curl ec2-100-25-169-246.compute-1.amazonaws.com/book
+curl ec2-100-25-169-246.compute-1.amazonaws.com/books/1
+curl -X DELETE ec2-100-25-169-246.compute-1.amazonaws.com/books/1
+curl -X POST -H "Content-Type: application/json" -d '{"title":"Animal Farm"}' ec2-100-25-169-246.compute-1.amazonaws.com/books
+curl -X PUT -H "Content-Type: application/json" -d '{"author":"George Orwell"}' ec2-100-25-169-246.compute-1.amazonaws.com/books/4
+

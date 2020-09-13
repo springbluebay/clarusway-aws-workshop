@@ -1,0 +1,40 @@
+Portfolio Building Session
+09/13/2020
+
+Project-203: Docker Swarm Deployment of Phonebook Application (Python Flask) with MySQL
+
+Instructor: Callahan
+
+Session - 2 
+
+Session starts at 11am EST
+
+Break until 12.10pm
+
+---Worker--
+docker-compose --version
+docker --version
+python --version
+pip --version
+pip3 --version
+sudo yum install python-pip
+pip install ec2instanceconnectcli
+sudo pip install ec2instanceconnectcli
+mssh -r us-east-1 <instance-id>
+mssh -r us-east-1 <instance-id> docker swarm join-token worker | grep docker
+$(mssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -r us-east-1 <instance-id> docker swarm join-token worker | grep docker)
+   
+---Manager---
+curl 169.254.169.254/latest/meta-data/instance-id
+docker swarm init
+docker swarm join-token worker
+docker swarm join-token worker | grep docker
+docker service create \
+--name=viz \
+--publish=8080:8080/tcp \
+--constraint=node.role==manager \
+--mount=type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
+dockersamples/visualizer
+
+
+
