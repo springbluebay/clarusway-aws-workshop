@@ -66,11 +66,16 @@
 
   <form action="/" method="post">
     <label for="number"><b>Please enter a number:</b></label>
-    <input placeholder="50" name="number" id="nm" required />
+    <input placeholder="50" name="number" id="nm" required/>
     <button type="submit">Submit</button>
     {% if not_valid %}
     <p class="warning"><b>Not Valid! Please enter a number between 1 and 3999, inclusively.</b></p>
     {% endif %}
+    {% if not_valid %}
+    <h3><b>Result:</b></h3>
+    <p>Number <span class="result"> <b> {{ number_decimal }}</b> </span>equals to <span class="result"><b>{{ number_roman }}</b></span> in Roman Numerals</p><br><br>
+    {% endif %}
+
   </form>
 
   <p class="footnote"><i>This app is developed in Python by <b>{{ developer_name }}</b> and deployed with Flask on AWS EC2 Instance using AWS Clouldformation Service.</i></p>
