@@ -1,0 +1,29 @@
+Logical ID
+
+ALBListener
+ALBSecurityGroup
+ApplicationLoadBalancer
+WebServerASG
+WebServerLT
+WebServersSecurityGroup
+WebServersTG
+
+Physical ID
+
+arn:aws:elasticloadbalancing:us-east-1:827784331229:listener/app/milli-Appli-1WXWQ69CTX28G/6adbe22b25cadade/62b3dfd64882ad8e
+milliseconds-ALBSecurityGroup-ANZF1E80DDRK
+arn:aws:elasticloadbalancing:us-east-1:827784331229:loadbalancer/app/milli-Appli-1WXWQ69CTX28G/6adbe22b25cadade
+milliseconds-WebServerASG-DGKOECY8LGAV
+lt-0848793e95e68831d
+milliseconds-WebServersSecurityGroup-E7ZD1HP3JT1W
+arn:aws:elasticloadbalancing:us-east-1:827784331229:targetgroup/milli-WebSe-VP7O8MFQKXOR/ae4a907f3ad73cc3
+
+Type
+
+AWS::ElasticLoadBalancingV2::Listener
+AWS::EC2::SecurityGroup
+AWS::ElasticLoadBalancingV2::LoadBalancer
+AWS::AutoScaling::AutoScalingGroup
+AWS::EC2::LaunchTemplate
+AWS::EC2::SecurityGroup
+AWS::ElasticLoadBalancingV2::TargetGroup
