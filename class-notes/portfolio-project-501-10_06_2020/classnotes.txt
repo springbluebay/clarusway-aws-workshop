@@ -1,0 +1,32 @@
+Portfolio Building Session
+10/06/2020
+
+Project-501: Microservices CI/CD Pipeline
+
+Instructor: Callahan/Chris
+
+Session - 1
+
+Session starts at 7pm EST
+
+Break until 9.25pm EST
+
+
+
+Terms
+
+- Cloud Native Application - Easy to deploy on cloud environment
+
+- Cloud Agnostic Application - Can be deployed on multi-cloud environment
+
+
+
+Resources
+
+- http://ec2-3-236-111-151.compute-1.amazonaws.com:8080
+
+- https://github.com/clarusway/petclinic-microservices
+
+- https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
+
+- https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html

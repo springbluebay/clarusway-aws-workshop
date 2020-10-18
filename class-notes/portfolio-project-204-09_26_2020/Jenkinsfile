@@ -1,0 +1,117 @@
+pipeline {
+    agent {
+        label 'master'
+    }
+
+    environment {
+        APP_NAME="Clarusway-App"
+        REPO_VERSION="App-${BUILD_NUMBER}"
+    }
+
+
+    stages {
+        stage('creating ECR Repo') {
+            steps {
+                echo 'creating ECR Repo'
+                echo "Build number is:: ${BUILD_NUMBER}"
+                echo "Workspace path is ::: ${WORKSPACE}"
+                sh 'echo trying like in linux::: $JENKINS_URL'
+            }
+        }
+        
+        stage('building Docker image') {
+            steps {
+                echo 'building Docker image'
+                echo "Application Name is:: ${APP_NAME}"
+                echo "Repo version is ::: ${REPO_VERSION}"
+                //sh 'docker build ... '
+            }
+        }
+
+        stage('pushing Docker image to ECR Repo') {
+            steps {
+                echo 'pushing Docker image to ECR Repo'
+                // sh 'aws ecr get-login-password ... '
+                // sh 'docker push ... '
+            }
+        }
+
+        stage('creating infrastructure for the app') {
+            steps {
+                echo 'creating infrastructure for the app'
+                //sh 'aws cloudformation create-stack ..... '
+                script {
+                    int counter = 0 ;
+
+                    while ( counter < 3 ) {
+                        println('Counting... ' +counter);
+                        sleep(2)
+                        counter++;
+
+                        //sh 'aws ec2 describe ...' get ip
+                        //if (ip.length 7 ) ... break
+                        //else sleep(10)
+                    }
+                }
+            }
+        }
+
+        stage('test the Viz App') {
+            steps {
+                echo 'test the Viz App'
+                script {
+                    int counter = 0 ;
+
+                    while ( counter < 3 ) {
+                        println('Counting... ' +counter);
+                        sleep(2)
+                        counter++;
+                        //try catch block with groovy/java
+                        //sh 'curl ip:8080 ...' break
+                        //failure ... sleep(5)
+                    }
+                }
+            }
+        }
+
+        stage('deploying the application') {
+            steps {
+                echo 'deploying the application'
+                sh 'mssh .... git clone'
+                sh 'mssh .... docker stack deploy'
+            }
+        }
+
+        stage('test phonebook the application') {
+            steps {
+                echo 'test phonebook the application'
+                script {
+                    int counter = 0 ;
+
+                    while ( counter < 3 ) {
+                        println('Counting... ' +counter);
+                        sleep(2)
+                        counter++;
+                        //try catch block with groovy/java
+                        //sh 'curl ip:8080 ...' break
+                        //failure ... sleep(5)
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Goodbye ALL... Please come back soon'
+        }
+
+        failure {
+            echo 'Sorry but you messed up...'
+        }
+
+        success { 
+            echo 'You are the man/woman...'
+        }
+    }
+}

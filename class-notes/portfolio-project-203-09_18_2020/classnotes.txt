@@ -1,0 +1,42 @@
+Portfolio Building Session
+09/18/2020
+
+Project-203: Docker Swarm Deployment of Phonebook Application (Python Flask) with MySQL
+
+Instructor: Callahan
+
+Session - 3 
+
+Session starts at 7pm EST
+
+Break until 8.05pm EST
+
+Break until 9.10pm EST
+
+
+- Infrastructure (AWS Cloudformation, Terraform)
+
+    - Public Repository on GitHub (Codebase)
+     - git clone https://github.com/callahan-cw/project-203.git
+     - git add .
+     - git commit -m 'initialized the project'
+     - git push
+    - Docker Swarm as Orchestrator
+        - 3 Managers
+        - 2 Workers
+    - Swarm nodes should be able to
+        - talk to each other through SSH (EC2 Connect CLI, IAM Policy/Roles)
+        - talk to ECR (AWS CLI, ECR Credential Helper, IAM Roles)
+    - Image Repository (AWS ECR)
+
+- Application Deployment (AWS Cloudformation, Jenkins, Ansible)
+
+    - Python Flask
+    - MySQL
+
+
+- Resources
+    - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-connect-set-up.html#ec2-instance-connect-install-eic-CLI
+    - https://docs.docker.com/engine/swarm/swarm-tutorial/
+    - https://github.com/awslabs/amazon-ecr-credential-helper
+    - 

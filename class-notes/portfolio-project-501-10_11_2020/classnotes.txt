@@ -1,0 +1,26 @@
+Portfolio Building Session
+10/11/2020
+
+Project-501: Microservices CI/CD Pipeline
+
+Instructor: Callahan/Chris
+
+Session - 4
+
+Session starts at 1.30pm EST
+
+
+Break until 2.45pm EST
+
+
+
+
+
+
+Resources
+
+- https://github.com/clarusway/petclinic-microservices
+
+- https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
+
+- https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html

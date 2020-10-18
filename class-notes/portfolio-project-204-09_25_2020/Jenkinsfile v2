@@ -1,0 +1,19 @@
+pipeline {
+    agent {
+        label 'master'
+    }
+
+    stages {
+        stage('Check Docker') {
+            steps {
+                sh 'docker --version'
+            }
+        }
+        
+        stage('List the images') {
+            steps {
+                sh 'docker image ls'
+            }
+        }
+    }
+}

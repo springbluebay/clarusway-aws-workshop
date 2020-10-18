@@ -1,0 +1,37 @@
+Portfolio Building Session
+10/10/2020
+
+Project-501: Microservices CI/CD Pipeline
+
+Instructor: Callahan/Chris
+
+Session - 3
+
+Session starts at 11am EST
+
+
+Break until 12.05pm EST
+
+Break until 1.50pm EST
+
+Break until 3.05pm EST
+
+
+admin-server: 9090
+api-gateway: 8080
+config-server:8888
+customer-service:8081
+discovery-server:8761
+hystrix-dashboard:7979
+vets-service:8083
+visits-service:8082
+
+
+
+Resources
+
+- https://github.com/clarusway/petclinic-microservices
+
+- https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
+
+- https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html

@@ -1,0 +1,61 @@
+Portfolio Building Session
+09/20/2020
+
+Project-203: Docker Swarm Deployment of Phonebook Application (Python Flask) with MySQL
+
+Instructor: Callahan
+
+Session - 4 
+
+Session starts at 11am EST
+
+Break until 12.30pm EST
+
+
+
+- Infrastructure (AWS Cloudformation, Terraform)
+
+  - Public Repository on GitHub (Codebase)
+    - git clone https://github.com/callahan-cw/project-203.git
+    - git add .
+    - git commit -m 'initialized the project'
+    - git push
+  - Docker Swarm as Orchestrator
+      - 3 Managers
+      - 2 Workers
+  - Swarm nodes should be able to
+      - talk to each other through SSH (EC2 Connect CLI, IAM Policy/Roles)
+      - talk to ECR (AWS CLI, ECR Credential Helper, IAM Roles)
+  - Image Repository (AWS ECR)
+
+- Application Deployment (AWS Cloudformation, Jenkins, Ansible)
+  - Creating Dockerfile Python Flask Application
+  - Creating Docker-Compose File
+    - Service MySQL
+    - Service for App
+  - Improve Cloudformation template to deploy app
+
+  aws ecr create-repository \
+      --repository-name ${APP_REPO_NAME} \
+      --image-scanning-configuration scanOnPush=false \
+      --image-tag-immutability MUTABLE \
+      --region ${AWS::Region}
+  docker build --force-rm -t "${ECR_REGISTRY}/${APP_REPO_NAME}:latest" ${GITHUB_REPO}
+  docker push "${ECR_REGISTRY}/${APP_REPO_NAME}:latest"
+  mkdir -p /home/ec2-user/phonebook
+  cd /home/ec2-user/phonebook
+  cat << EOF | tee .env
+  ECR_REGISTRY=${ECR_REGISTRY}
+  APP_REPO_NAME=${APP_REPO_NAME}
+  EOF
+  curl -o "docker-compose.yml" -L ${GIT_FILE_URL}docker-compose.yml
+  curl -o "init.sql" -L ${GIT_FILE_URL}init.sql
+  docker-compose config | docker stack deploy --with-registry-auth -c - phonebook
+
+
+- Resources
+    - https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-connect-set-up.html#ec2-instance-connect-install-eic-CLI
+    - https://docs.docker.com/engine/swarm/swarm-tutorial/
+    - https://github.com/awslabs/amazon-ecr-credential-helper
+    - https://docs.docker.com/compose/compose-file/
+    - https://hub.docker.com/_/mysql

@@ -1,0 +1,51 @@
+Portfolio Building Session
+10/08/2020
+
+Project-501: Microservices CI/CD Pipeline
+
+Instructor: Callahan/Chris
+
+Session - 2
+
+Session starts at 7pm EST
+
+Break Until 8.20pm EST
+
+Break Until 9.30pm EST
+
+MSP 1 - Prepare Development Server Manually on EC2 Instance
+
+- Amazon Linux 2
+- t2.medium
+- Key:Name,Value:Petclinic Dev Server
+- Ports: all 
+- KeyPair
+- User-data:
+  # update os
+  sudo yum update -y
+  # set hostname as petclinic-dev-server
+  sudo hostnamectl set-hostname petclinic-dev-server
+  # install docker
+  sudo amazon-linux-extras install docker -y
+  sudo systemctl start docker
+  sudo systemctl enable docker
+  sudo usermod -a -G docker ec2-user
+  # install docker compose
+  sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  sudo chmod +x /usr/local/bin/docker-compose
+  # install JDK 11
+  sudo yum install java-11-amazon-corretto -y
+  # install Git
+  sudo yum install git -y
+
+
+
+
+
+Resources
+
+- https://github.com/clarusway/petclinic-microservices
+
+- https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
+
+- https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html

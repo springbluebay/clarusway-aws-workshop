@@ -1,0 +1,32 @@
+Portfolio Building Session
+09/25/2020
+
+Project-204: Jenkins Pipeline for Dockerized Phonebook Application (Python Flask & MySQL) Deployed on Docker Swarm
+
+Instructor: Callahan
+
+Session - 1
+
+Session starts at 7pm EST
+
+Break Until 8.15pm EST
+
+Break Until 9.20pm EST
+
+
+Jenkins Server should be capable of
+
+ - creating ECR Repo
+
+ - building Docker image
+
+ - pushing Docker image to ECR Repo
+
+ - creating infrastructure for the app
+
+ - deploying the application
+
+
+ Resources
+
+ - https://www.jenkins.io/doc/book/pipeline/getting-started/

@@ -1,0 +1,39 @@
+pipeline {
+    agent {
+        label 'master'
+    }
+
+    stages {
+        stage('Check AWS CLI') {
+            steps {
+                sh 'aws --version'
+            }
+        }
+        
+        stage('create repo') {
+            steps {
+                sh """
+                aws ecr create-repository \
+                  --repository-name test-repo \
+                  --image-scanning-configuration scanOnPush=false \
+                  --image-tag-mutability MUTABLE \
+                  --region us-east-1
+                """
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Goodbye ALL... Please come back soon'
+        }
+
+        failure {
+            echo 'Sorry but you messed up...'
+        }
+
+        success { 
+            echo 'You are the man/woman...'
+        }
+    }
+}
