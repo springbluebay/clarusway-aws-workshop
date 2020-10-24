@@ -1,0 +1,58 @@
+Portfolio Building Session
+10/20/2020
+
+Project-501: Microservices CI/CD Pipeline
+
+Instructor: Callahan/Chris
+
+Session - 9
+
+Session starts at 7pm EST
+
+Break until 8.15pm EST
+
+Break until 9.15pm EST
+
+
+
+
+Pipelines to be configured
+
+- petclinic-ci-job  -- dev, feature**, bugfix** -- triggered on each commit (webhook)
+
+- petclinic-nightly -- dev                      -- triggered every night 11.59pm (cronjob)
+
+- petclinic-weekly  -- release                  -- triggered every sunday 11.59pm (cronjob)
+
+- petclinic-staging -- release                  -- triggered every sunday 11.59pm (cronjob)
+
+- petclinic-prod    -- master                   -- triggered on each commit (webhook)
+
+
+
+Betul:circus_tent:  2:13 AM
+Do developers have a separate jenkins server too?
+2:14
+mainly for continuous integration
+
+Jason  2:15 AM
+isnt that dangerous ?
+2:15
+for our health , as the devops team ?
+
+
+2:15
+do we have to be alert anytime they push stuff ?
+New
+
+Betul:circus_tent:  2:16 AM
+i am confused about before you said we created jenkins server after development environment because they have a separate env. (edited) 
+
+Betul:circus_tent:  2:23 AM
+ok, but it is a parallel process then
+
+
+Resources
+
+- https://docs.ansible.com/ansible/latest/collections/amazon/aws/aws_ec2_inventory.html
+

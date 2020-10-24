@@ -1,0 +1,34 @@
+Portfolio Building Session
+10/17/2020
+
+Project-501: Microservices CI/CD Pipeline
+
+Instructor: Callahan/Chris
+
+Session - 7
+
+Session starts at 11am EST
+
+
+Break until 12.25pm EST
+
+Break until 1.45pm EST
+
+Break until 2.45pm EST
+
+
+Pipelines to be configured
+
+- petclinic-ci-job  -- dev, feature**, bugfix** -- triggered on each commit (webhook)
+
+- petclinic-nightly -- dev                      -- triggered every night 11.59pm (cronjob)
+
+- petclinic-weekly  -- release                  -- triggered every sunday 11.59pm (cronjob)
+
+- petclinic-staging -- release                  -- triggered every sunday 11.59pm (cronjob)
+
+- petclinic-prod    -- master                   -- triggered on each commit (webhook)
+
+
+
+
